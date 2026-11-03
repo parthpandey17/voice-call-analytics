@@ -1,0 +1,38 @@
+# --- Core ---
+python-dotenv>=1.0.0
+
+# --- Speech-to-text (local) ---
+openai-whisper>=20231117
+# ffmpeg must be installed at the OS level (not pip)
+
+# --- LLM providers (install at least one matching your .env LLM_PROVIDER) ---
+google-generativeai>=0.7.0
+groq>=0.9.0
+
+# --- Embeddings + vector store (local) ---
+sentence-transformers>=2.7.0
+chromadb>=0.5.0
+
+# --- LangChain (RAG + agent + text-to-SQL) ---
+langchain>=0.2.0
+langchain-community>=0.2.0
+langchain-google-genai>=1.0.0
+langchain-chroma>=0.1.0
+langchain-huggingface>=0.0.3
+
+# --- Dashboard ---
+streamlit>=1.36.0
+pandas>=2.0.0
+plotly>=5.20.0
+
+# --- HTTP (Sarvam translate API) ---
+requests>=2.31.0
+
+# =====================================================================
+# Cloud / scale extras (uncomment for the BigQuery + Databricks version)
+# =====================================================================
+# google-cloud-bigquery>=3.20.0
+# google-cloud-storage>=2.16.0
+# sqlalchemy-bigquery>=1.11.0
+# pyspark>=3.5.0           # provided by the Databricks runtime; local only if testing Spark
+# pyannote.audio>=3.1.0    # speaker diarization
