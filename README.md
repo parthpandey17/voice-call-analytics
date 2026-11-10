@@ -123,6 +123,21 @@ streamlit run dashboard/app.py
 ```
 Trend charts + a question box, all off the local DB.
 
+## Deploy the dashboard to Render
+
+The repository includes a Render Blueprint in `render.yaml`. To deploy:
+
+1. In Render, choose **New → Blueprint** and select this repository.
+2. Set `GROQ_API_KEY` in Render's environment-variable settings. Keep it secret.
+3. Deploy the blueprint. Render starts Streamlit on its assigned `$PORT`.
+
+The default free-tier Render deployment uses the local backend, so its SQLite
+and Chroma data are ephemeral and will be lost when the service is rebuilt or
+restarted. It will show no calls until the pipeline has been run against audio
+on the deployed instance. For persistent production data, use the BigQuery
+backend and configure cloud credentials through Render secrets instead of
+committing them to the repository.
+
 ---
 
 ## Step-by-step: the CLOUD / BigQuery + Databricks version
