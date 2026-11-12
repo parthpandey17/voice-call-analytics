@@ -1,0 +1,36 @@
+{
+  "name": "voc-call-analytics-pipeline",
+  "job_clusters": [
+    {
+      "job_cluster_key": "voc_cluster",
+      "new_cluster": {
+        "spark_version": "15.4.x-gpu-ml-scala2.12",
+        "node_type_id": "g4dn.xlarge",
+        "num_workers": 2,
+        "spark_env_vars": {
+          "SARVAM_API_KEY": "{{secrets/voc/sarvam_api_key}}",
+          "GOOGLE_API_KEY": "{{secrets/voc/google_api_key}}"
+        }
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "task_key": "transcribe_translate",
+      "job_cluster_key": "voc_cluster",
+      "notebook_task": { "notebook_path": "/Repos/voc/databricks/01_transcribe_translate" }
+    },
+    {
+      "task_key": "llm_extract",
+      "depends_on": [{ "task_key": "transcribe_translate" }],
+      "job_cluster_key": "voc_cluster",
+      "notebook_task": { "notebook_path": "/Repos/voc/databricks/02_llm_extract" }
+    },
+    {
+      "task_key": "embed_and_load",
+      "depends_on": [{ "task_key": "llm_extract" }],
+      "job_cluster_key": "voc_cluster",
+      "notebook_task": { "notebook_path": "/Repos/voc/databricks/03_embed_and_load" }
+    }
+  ]
+}
