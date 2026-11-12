@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: voc-call-analytics
+    runtime: python
+    plan: free
+
+    buildCommand: pip install -r requirements.txt
+
+    startCommand: python -m streamlit run dashboard/app.py --server.address 0.0.0.0 --server.port $PORT --server.headless true
+
+    healthCheckPath: /_stcore/health
+
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+
+      - key: LLM_PROVIDER
+        value: groq
+
+      - key: GROQ_API_KEY
+        sync: false
+
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+
+      - key: LOCAL_DB_PATH
+        value: voc_local.db
+
+      - key: SEED_CSV
+        value: sample_data/seed_calls.csv

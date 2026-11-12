@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+voc_local.db
+chroma/
+sample_data/calls/*.mp3
+sample_data/calls/*.wav
+*.json.key
+.DS_Store
